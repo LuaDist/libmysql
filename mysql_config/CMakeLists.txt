@@ -34,4 +34,4 @@ TARGET_LINK_LIBRARIES(mysql_config mysqlclient ${WIN32_ADD_LIBRARIES})
 # Installation
 #
 INSTALL(TARGETS mysql_config
-        DESTINATION "bin")
+        DESTINATION ${INSTALL_BIN})
