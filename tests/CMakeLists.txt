@@ -18,4 +18,4 @@ ADD_DEFINITIONS("-DMYSQL_CLIENT")
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 
 ADD_EXECUTABLE(mysql_client_test mysql_client_test.c ../mysys/my_memmem.c)
-TARGET_LINK_LIBRARIES(mysql_client_test mysqlclient ${WIN32_ADD_LIBRARIES})
+TARGET_LINK_LIBRARIES(mysql_client_test mysql ${WIN32_ADD_LIBRARIES})

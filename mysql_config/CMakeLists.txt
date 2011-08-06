@@ -29,7 +29,7 @@ CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/mysql_config.c.in
                ${CMAKE_CURRENT_BINARY_DIR}/mysql_config.c @ONLY)
 
 ADD_EXECUTABLE(mysql_config mysql_config.c)
-TARGET_LINK_LIBRARIES(mysql_config mysqlclient ${WIN32_ADD_LIBRARIES})
+TARGET_LINK_LIBRARIES(mysql_config mysql ${WIN32_ADD_LIBRARIES})
 
 # Installation
 #
