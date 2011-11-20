@@ -281,6 +281,10 @@ INCLUDE(${CMAKE_SOURCE_DIR}/CMakePlatformTests.txt)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/include/my_config.h.in
                ${CMAKE_CURRENT_BINARY_DIR}/include/my_config.h)
 
+IF(HAVE_SSIZE_T)
+	ADD_DEFINITIONS(-DHAVE_SSIZE_T)
+ENDIF()
+			   
 ADD_SUBDIRECTORY(vio)
 ADD_SUBDIRECTORY(extlib/dbug)
 ADD_SUBDIRECTORY(strings)

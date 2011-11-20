@@ -8,3 +8,7 @@ author = "MySQL"
 license = "GPL"
 url = "http://www.mysql.com"
 maintainer = "Peter Drahoš"
+
+depends = {
+	"zlib >= 1.2",
+}

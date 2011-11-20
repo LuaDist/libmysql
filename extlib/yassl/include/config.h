@@ -17,7 +17,7 @@
 /* #undef HAVE_NETINET_IN_H */
 /* #undef HAVE_PATHS_H */
 /* #undef HAVE_PWD_H */
-/* #undef HAVE_SCHED_H */
+#define HAVE_SCHED_H 1
 /* #undef HAVE_SELECT_H */
 #define HAVE_STDDEF_H 1
 #define HAVE_STDLIB_H 1
@@ -152,6 +152,7 @@
 /* #undef HAVE_THR_YIELD */
 /* #undef HAVE_VASPRINTF */
 #define HAVE_VSNPRINTF 1
+#define HAVE_SSIZE_T 1
 
 /* Symbols we may use */
 /* #undef HAVE_SYS_ERRLIST */
@@ -288,8 +289,8 @@
 
 #define STACK_DIRECTION -1
 
-#define SHAREDIR "c:/Work/Repository/_install/share/mysql"
+#define SHAREDIR "C:/Work/LuaDist/Win/bin/../tmp/libmysql-6.0.2-Windows-x86/share/mysql"
 #define THREAD 1
 #define THREAD_SAFE_CLIENT 1
 
-#define DEFAULT_CHARSET_HOME "c:/Work/Repository/_install"
+#define DEFAULT_CHARSET_HOME "C:/Work/LuaDist/Win/bin/../tmp/libmysql-6.0.2-Windows-x86"
