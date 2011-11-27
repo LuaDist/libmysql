@@ -11,4 +11,5 @@ maintainer = "Peter Drahoš"
 
 depends = {
 	"zlib >= 1.2",
+	"openssl >= 0.9.0",
 }
