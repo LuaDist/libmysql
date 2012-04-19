@@ -48,12 +48,12 @@
 */
 #define DTOA_BUFF_SIZE (420 * sizeof(void *))
 
-/* Magic value returned by dtoa() to indicate overflow */
+/* Magic value returned by _dtoa() to indicate overflow */
 #define DTOA_OVERFLOW 9999
 
 static double my_strtod_int(const char *, char **, int *, char *, size_t);
-static char *dtoa(double, int, int, int *, int *, char **, char *, size_t);
-static void dtoa_free(char *, char *, size_t);
+static char *_dtoa(double, int, int, int *, int *, char **, char *, size_t);
+static void _dtoa_free(char *, char *, size_t);
 
 /**
    @brief
@@ -61,7 +61,7 @@ static void dtoa_free(char *, char *, size_t);
    representation using the 'f' format.
 
    @details
-   This function is a wrapper around dtoa() to do the same as
+   This function is a wrapper around _dtoa() to do the same as
    sprintf(to, "%-.*f", precision, x), though the conversion is usually more
    precise. The only difference is in handling [-,+]infinity and nan values,
    in which case we print '0\0' to the output string and indicate an overflow.
@@ -93,11 +93,11 @@ size_t my_fcvt(double x, int precision, char *to, my_bool *error)
   char buf[DTOA_BUFF_SIZE];
   DBUG_ASSERT(precision >= 0 && precision < NOT_FIXED_DEC && to != NULL);
   
-  res= dtoa(x, 5, precision, &decpt, &sign, &end, buf, sizeof(buf));
+  res= _dtoa(x, 5, precision, &decpt, &sign, &end, buf, sizeof(buf));
 
   if (decpt == DTOA_OVERFLOW)
   {
-    dtoa_free(res, buf, sizeof(buf));
+    _dtoa_free(res, buf, sizeof(buf));
     *to++= '0';
     *to= '\0';
     if (error != NULL)
@@ -141,7 +141,7 @@ size_t my_fcvt(double x, int precision, char *to, my_bool *error)
   if (error != NULL)
     *error= FALSE;
 
-  dtoa_free(res, buf, sizeof(buf));
+  _dtoa_free(res, buf, sizeof(buf));
 
   return dst - to;
 }
@@ -189,7 +189,7 @@ size_t my_fcvt(double x, int precision, char *to, my_bool *error)
 
    @todo
    Check if it is possible and  makes sense to do our own rounding on top of
-   dtoa() instead of calling dtoa() twice in (rare) cases when the resulting
+   _dtoa() instead of calling _dtoa() twice in (rare) cases when the resulting
    string representation does not fit in the specified field width and we want
    to re-round the input number with fewer significant digits. Examples:
 
@@ -200,10 +200,10 @@ size_t my_fcvt(double x, int precision, char *to, my_bool *error)
 
    We do our best to minimize such cases by:
    
-   - passing to dtoa() the field width as the number of significant digits
+   - passing to _dtoa() the field width as the number of significant digits
    
    - removing the sign of the number early (and decreasing the width before
-     passing it to dtoa())
+     passing it to _dtoa())
    
    - choosing the proper format to preserve the most number of significant
      digits.
@@ -222,11 +222,11 @@ size_t my_gcvt(double x, my_gcvt_arg_type type, int width, char *to,
   if (x < 0.)
     width--;
 
-  res= dtoa(x, 4, type == MY_GCVT_ARG_DOUBLE ? width : min(width, FLT_DIG),
+  res= _dtoa(x, 4, type == MY_GCVT_ARG_DOUBLE ? width : min(width, FLT_DIG),
             &decpt, &sign, &end, buf, sizeof(buf));
   if (decpt == DTOA_OVERFLOW)
   {
-    dtoa_free(res, buf, sizeof(buf));
+    _dtoa_free(res, buf, sizeof(buf));
     *to++= '0';
     *to= '\0';
     if (error != NULL)
@@ -327,8 +327,8 @@ size_t my_gcvt(double x, my_gcvt_arg_type type, int width, char *to,
         decimal point. For this we are calling dtoa with mode=5, passing the
         number of significant digits = (len-decpt) - (len-width) = width-decpt
       */
-      dtoa_free(res, buf, sizeof(buf));
-      res= dtoa(x, 5, width - decpt, &decpt, &sign, &end, buf, sizeof(buf));
+      _dtoa_free(res, buf, sizeof(buf));
+      res= _dtoa(x, 5, width - decpt, &decpt, &sign, &end, buf, sizeof(buf));
       src= res;
       len= end - res;
     }
@@ -393,8 +393,8 @@ size_t my_gcvt(double x, my_gcvt_arg_type type, int width, char *to,
     if (width < len)
     {
       /* Yes, re-convert with a smaller width */
-      dtoa_free(res, buf, sizeof(buf));
-      res= dtoa(x, 4, width, &decpt, &sign, &end, buf, sizeof(buf));
+      _dtoa_free(res, buf, sizeof(buf));
+      res= _dtoa(x, 4, width, &decpt, &sign, &end, buf, sizeof(buf));
       src= res;
       len= end - res;
       if (--decpt < 0)
@@ -434,7 +434,7 @@ size_t my_gcvt(double x, my_gcvt_arg_type type, int width, char *to,
   }
 
 end:
-  dtoa_free(res, buf, sizeof(buf));
+  _dtoa_free(res, buf, sizeof(buf));
   *dst= '\0';
 
   return dst - to;
@@ -504,7 +504,7 @@ double my_atof(const char *nptr)
   * strtod() was modified to not expect a zero-terminated string.
     It now honors 'se' (end of string) argument as the input parameter,
     not just as the output one.
-  * in dtoa(), in case of overflow/underflow/NaN result string now contains "0";
+  * in _dtoa(), in case of overflow/underflow/NaN result string now contains "0";
     decpt is set to DTOA_OVERFLOW to indicate overflow.
   * support for VAX, IBM mainframe and 16-bit hardware removed
   * we always assume that 64-bit integer type is available
@@ -732,11 +732,11 @@ static char *dtoa_alloc(int i, Stack_alloc *alloc)
 
 
 /*
-  dtoa_free() must be used to free values s returned by dtoa()
+  _dtoa_free() must be used to free values s returned by _dtoa()
   This is the counterpart of dtoa_alloc()
 */
 
-static void dtoa_free(char *gptr, char *buf, size_t buf_size)
+static void _dtoa_free(char *gptr, char *buf, size_t buf_size)
 {
   if (gptr < buf || gptr >= buf + buf_size)
     free(gptr);
@@ -2126,7 +2126,7 @@ static int quorem(Bigint *b, Bigint *S)
            calculation.
  */
 
-static char *dtoa(double d, int mode, int ndigits, int *decpt, int *sign,
+static char *_dtoa(double d, int mode, int ndigits, int *decpt, int *sign,
                   char **rve, char *buf, size_t buf_size)
 {
   /*
