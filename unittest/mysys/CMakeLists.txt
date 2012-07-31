@@ -13,26 +13,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-ENABLE_TESTING()
+enable_testing ( )
 
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSAFEMALLOC -DSAFE_MUTEX")
-SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSAFEMALLOC -DSAFE_MUTEX")
+set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSAFEMALLOC -DSAFE_MUTEX" )
+set ( CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DSAFEMALLOC -DSAFE_MUTEX" )
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib
-                    ${CMAKE_SOURCE_DIR}/regex
-                    ${CMAKE_SOURCE_DIR}/extra/yassl/include
-                    ${CMAKE_SOURCE_DIR}/unittest/mytap)
+include_directories ( ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib ${CMAKE_SOURCE_DIR}/regex 
+  ${CMAKE_SOURCE_DIR}/extra/yassl/include ${CMAKE_SOURCE_DIR}/unittest/mytap )
 
-SET(API_TESTS "bitmap-t" "base64-t" "my_atomic-t" "lf-t")
+set ( API_TESTS "bitmap-t" "base64-t" "my_atomic-t" "lf-t" )
 
-IF(NOT WIN32)
- SET(API_TESTS ${API_TESTS} "waiting_threads-t")
-ENDIF(NOT WIN32)
+if ( NOT WIN32 )
+  set ( API_TESTS ${API_TESTS} "waiting_threads-t" )
+endif ( NOT WIN32 )
 
-FOREACH(API_TEST ${API_TESTS})
-  ADD_EXECUTABLE(${API_TEST} ${API_TEST}.c)
-  TARGET_LINK_LIBRARIES(${API_TEST} mytap mysys strings dbug ${WIN32_ADD_LIBRARIES})
+foreach ( API_TEST ${API_TESTS} )
+add_executable ( ${API_TEST} ${API_TEST}.c )
+target_link_libraries ( ${API_TEST} mytap mysys strings dbug ${WIN32_ADD_LIBRARIES} )
 
-  ADD_TEST(${API_TEST} ${EXECUTABLE_OUTPUT_PATH}/${API_TEST})
-  SET_TESTS_PROPERTIES(${API_TEST} PROPERTIES TIMEOUT 120)
-ENDFOREACH(API_TEST)
+add_test ( ${API_TEST} ${EXECUTABLE_OUTPUT_PATH}/${API_TEST} )
+set_tests_properties ( ${API_TEST} PROPERTIES TIMEOUT 120 )
+endforeach ( API_TEST )

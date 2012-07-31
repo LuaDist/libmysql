@@ -13,27 +13,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+include_directories ( ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib ${CMAKE_SOURCE_DIR}/sql 
+  ${CMAKE_SOURCE_DIR}/regex ${CMAKE_SOURCE_DIR}/extra/yassl/include ${CMAKE_SOURCE_DIR}/unittest/mytap )
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib
-                    ${CMAKE_SOURCE_DIR}/sql
-                    ${CMAKE_SOURCE_DIR}/regex
-                    ${CMAKE_SOURCE_DIR}/extra/yassl/include
-                    ${CMAKE_SOURCE_DIR}/unittest/mytap)
+add_executable ( simple-t simple-t.c )
+target_link_libraries ( simple-t mytap ${WIN32_ADD_LIBRARIES} )
 
-ADD_EXECUTABLE(simple-t simple-t.c)
-TARGET_LINK_LIBRARIES(simple-t mytap ${WIN32_ADD_LIBRARIES})
+add_executable ( skip-t skip-t.c )
+target_link_libraries ( skip-t mytap ${WIN32_ADD_LIBRARIES} )
 
-ADD_EXECUTABLE(skip-t skip-t.c)
-TARGET_LINK_LIBRARIES(skip-t mytap ${WIN32_ADD_LIBRARIES})
+add_executable ( todo-t todo-t.c )
+target_link_libraries ( todo-t mytap ${WIN32_ADD_LIBRARIES} )
 
-ADD_EXECUTABLE(todo-t todo-t.c)
-TARGET_LINK_LIBRARIES(todo-t mytap ${WIN32_ADD_LIBRARIES})
+add_executable ( skip_all-t skip_all-t.c )
+target_link_libraries ( skip_all-t mytap ${WIN32_ADD_LIBRARIES} )
 
-ADD_EXECUTABLE(skip_all-t skip_all-t.c)
-TARGET_LINK_LIBRARIES(skip_all-t mytap ${WIN32_ADD_LIBRARIES})
+add_executable ( no_plan-t no_plan-t.c )
+target_link_libraries ( no_plan-t mytap ${WIN32_ADD_LIBRARIES} )
 
-ADD_EXECUTABLE(no_plan-t no_plan-t.c)
-TARGET_LINK_LIBRARIES(no_plan-t mytap ${WIN32_ADD_LIBRARIES})
-
-ADD_EXECUTABLE(core-t core-t.c)
-TARGET_LINK_LIBRARIES(core-t mytap ${WIN32_ADD_LIBRARIES})
+add_executable ( core-t core-t.c )
+target_link_libraries ( core-t mytap ${WIN32_ADD_LIBRARIES} )

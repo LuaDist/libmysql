@@ -13,9 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib
-                    ${CMAKE_SOURCE_DIR}/sql
-                    ${CMAKE_SOURCE_DIR}/regex
-                    ${CMAKE_SOURCE_DIR}/extra/yassl/include)
-ADD_LIBRARY(mytap tap.c)
+include_directories ( ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib ${CMAKE_SOURCE_DIR}/sql 
+  ${CMAKE_SOURCE_DIR}/regex ${CMAKE_SOURCE_DIR}/extra/yassl/include )
+add_library ( mytap tap.c )

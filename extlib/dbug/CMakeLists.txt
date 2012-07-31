@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/dbug)
+include_directories ( ${CMAKE_SOURCE_DIR}/dbug )
 
-SET(DBUG_SOURCES dbug.c factorial.c sanity.c)
+set ( DBUG_SOURCES dbug.c factorial.c sanity.c )
 
-IF(NOT SOURCE_SUBLIBS)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
-  ADD_LIBRARY(dbug ${DBUG_SOURCES})
-ENDIF(NOT SOURCE_SUBLIBS)
+if ( NOT SOURCE_SUBLIBS )
+  include_directories ( ${CMAKE_SOURCE_DIR}/include )
+  add_library ( dbug ${DBUG_SOURCES} )
+endif ( NOT SOURCE_SUBLIBS )

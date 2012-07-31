@@ -13,22 +13,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-SET(VIO_SOURCES  vio.c viosocket.c viossl.c viosslfactories.c)
+set ( VIO_SOURCES vio.c viosocket.c viossl.c viosslfactories.c )
 
-IF(NOT SOURCE_SUBLIBS)
-  SET(CMAKE_CXX_FLAGS_DEBUG
-      "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG -DSAFEMALLOC -DSAFE_MUTEX")
-  SET(CMAKE_C_FLAGS_DEBUG
-      "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG -DSAFEMALLOC -DSAFE_MUTEX")
+if ( NOT SOURCE_SUBLIBS )
+  set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG -DSAFEMALLOC -DSAFE_MUTEX" )
+  set ( CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D_DEBUG -DSAFEMALLOC -DSAFE_MUTEX" )
 
-  ADD_DEFINITIONS(-DUSE_SYMDIR)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include
-                      ${CMAKE_SOURCE_DIR}/extlib/yassl/include)
+  add_definitions ( -DUSE_SYMDIR )
+  include_directories ( ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/extlib/yassl/include )
 
-  ADD_LIBRARY(vio ${VIO_SOURCES})
+  add_library ( vio STATIC ${VIO_SOURCES} )
 
-  IF(SOCKET_LIBRARY)
-    TARGET_LINK_LIBRARIES(vio ${SOCKET_LIBRARY})
-  ENDIF(SOCKET_LIBRARY)
+  if ( SOCKET_LIBRARY )
+    target_link_libraries ( vio ${SOCKET_LIBRARY} )
+  endif ( SOCKET_LIBRARY )
 
-ENDIF(NOT SOURCE_SUBLIBS)
+endif ( NOT SOURCE_SUBLIBS )

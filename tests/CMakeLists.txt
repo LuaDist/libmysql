@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-ADD_DEFINITIONS("-DMYSQL_CLIENT")
+add_definitions ( "-DMYSQL_CLIENT" )
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+include_directories ( ${CMAKE_SOURCE_DIR}/include )
 
-ADD_EXECUTABLE(mysql_client_test mysql_client_test.c ../mysys/my_memmem.c)
-TARGET_LINK_LIBRARIES(mysql_client_test mysql ${WIN32_ADD_LIBRARIES})
+add_executable ( mysql_client_test mysql_client_test.c ../mysys/my_memmem.c )
+target_link_libraries ( mysql_client_test mysql ${WIN32_ADD_LIBRARIES} )

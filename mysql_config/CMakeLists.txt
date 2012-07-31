@@ -13,25 +13,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+include_directories ( ${CMAKE_SOURCE_DIR}/include )
 
 # Figure out additional libraries for use with -lmysql
-FOREACH (dep ${libmysql_LIB_DEPENDS})
-  STRING(REGEX MATCH "^-.*$" out "${dep}")
-  IF(out)
-    SET(extra_dynamic_LDFLAGS "${extra_dynamic_LDFLAGS} ${dep}")
-  ENDIF(out)
-ENDFOREACH(dep)
+foreach ( dep ${libmysql_LIB_DEPENDS} )
+string ( REGEX MATCH "^-.*$" out "${dep}" )
+if ( out )
+  set ( extra_dynamic_LDFLAGS "${extra_dynamic_LDFLAGS} ${dep}" )
+endif ( out )
+endforeach ( dep )
 
-STRING(REGEX REPLACE "\([^\\]\) " "\\1\\\\ " CMAKE_INSTALL_PREFIX_ESCAPED "${CMAKE_INSTALL_PREFIX}")
+string ( REGEX REPLACE "\([^\\]\) " "\\1\\\\ " CMAKE_INSTALL_PREFIX_ESCAPED "${CMAKE_INSTALL_PREFIX}" )
 
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/mysql_config.c.in
-               ${CMAKE_CURRENT_BINARY_DIR}/mysql_config.c @ONLY)
+configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/mysql_config.c.in ${CMAKE_CURRENT_BINARY_DIR}/mysql_config.c 
+  @ONLY )
 
-ADD_EXECUTABLE(mysql_config mysql_config.c)
-TARGET_LINK_LIBRARIES(mysql_config mysql ${WIN32_ADD_LIBRARIES})
+add_executable ( mysql_config mysql_config.c )
+target_link_libraries ( mysql_config mysql ${WIN32_ADD_LIBRARIES} )
 
 # Installation
 #
-INSTALL(TARGETS mysql_config
-        DESTINATION ${INSTALL_BIN})
+install ( TARGETS mysql_config DESTINATION ${INSTALL_BIN} )

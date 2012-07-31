@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-cmake_minimum_required ( VERSION 2.8 )
+cmake_minimum_required ( VERSION 2.8.0 )
 if ( COMMAND CMAKE_POLICY )
   cmake_policy ( SET CMP0003 NEW )
 endif ( COMMAND CMAKE_POLICY )
@@ -284,7 +284,7 @@ else ( WIN32 AND ( CMAKE_GENERATOR MATCHES "MSYS" OR CMAKE_GENERATOR MATCHES "Mi
 endif ( WIN32 AND ( CMAKE_GENERATOR MATCHES "MSYS" OR CMAKE_GENERATOR MATCHES "MinGW" 
   ) )
 
-include ( ${CMAKE_SOURCE_DIR}/CMakePlatformTests.txt )
+include ( configure )
 configure_file ( ${CMAKE_CURRENT_SOURCE_DIR}/include/my_config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/my_config.h )
 
 if ( HAVE_SSIZE_T )
@@ -342,6 +342,8 @@ enable_testing ( )
 
 file ( GLOB HEADERS include/*.h )
 install_header ( ${HEADERS} )
+#install ( DIRECTORY "include/" DESTINATION ${INSTALL_INC} FILES_MATCHING PATTERN 
+#  "*.h" )
 
 # ----------------------------------------------------------------------
 # Create package script
@@ -388,6 +390,4 @@ endif ( NOT CONNECTOR_PLATFORM )
 # SET(CPACK_PACKAGE_FILE_NAME         "${CPACK_PACKAGE_INSTALL_DIRECTORY}")
 # ENDIF(WIN32)
 
-install_data ( README COPYING ChaneLog )
-
-include ( CPack )
+install_data ( README COPYING )

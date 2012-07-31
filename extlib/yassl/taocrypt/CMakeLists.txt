@@ -13,24 +13,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/extlib/yassl/taocrypt/mySTL
-                    ${CMAKE_SOURCE_DIR}/extlib/yassl/taocrypt/include
-                    ${CMAKE_SOURCE_DIR}/extlib/yassl/include
-                    ${CMAKE_SOURCE_DIR}/include)
+include_directories ( ${CMAKE_SOURCE_DIR}/extlib/yassl/taocrypt/mySTL ${CMAKE_SOURCE_DIR}/extlib/yassl/taocrypt/include 
+  ${CMAKE_SOURCE_DIR}/extlib/yassl/include ${CMAKE_SOURCE_DIR}/include )
 
-ADD_DEFINITIONS("-DHAVE_CONFIG_H")
+add_definitions ( "-DHAVE_CONFIG_H" )
 
-SET(TAOCRYPT_SOURCES		src/aes.cpp src/aestables.cpp src/algebra.cpp src/arc4.cpp src/asn.cpp src/coding.cpp 
-				src/des.cpp src/dh.cpp src/dsa.cpp src/file.cpp src/hash.cpp src/integer.cpp src/md2.cpp 
-				src/md4.cpp src/md5.cpp src/misc.cpp src/random.cpp src/ripemd.cpp src/rsa.cpp src/sha.cpp
-				include/aes.hpp include/algebra.hpp include/arc4.hpp include/asn.hpp include/block.hpp 
-				include/coding.hpp include/des.hpp include/dh.hpp include/dsa.hpp include/dsa.hpp
-				include/error.hpp include/file.hpp include/hash.hpp include/hmac.hpp include/integer.hpp 
-				include/md2.hpp include/md5.hpp include/misc.hpp include/modarith.hpp include/modes.hpp
-				include/random.hpp include/ripemd.hpp include/rsa.hpp include/sha.hpp)
+set ( TAOCRYPT_SOURCES src/aes.cpp src/aestables.cpp src/algebra.cpp src/arc4.cpp 
+  src/asn.cpp src/coding.cpp src/des.cpp src/dh.cpp src/dsa.cpp src/file.cpp src/hash.cpp 
+  src/integer.cpp src/md2.cpp src/md4.cpp src/md5.cpp src/misc.cpp src/random.cpp 
+  src/ripemd.cpp src/rsa.cpp src/sha.cpp include/aes.hpp include/algebra.hpp include/arc4.hpp 
+  include/asn.hpp include/block.hpp include/coding.hpp include/des.hpp include/dh.hpp 
+  include/dsa.hpp include/dsa.hpp include/error.hpp include/file.hpp include/hash.hpp 
+  include/hmac.hpp include/integer.hpp include/md2.hpp include/md5.hpp include/misc.hpp 
+  include/modarith.hpp include/modes.hpp include/random.hpp include/ripemd.hpp include/rsa.hpp 
+  include/sha.hpp )
 
-SET_SOURCE_FILES_PROPERTIES(${TAOCRYPT_SOURCES} LANGUAGE C)
+set_source_files_properties ( ${TAOCRYPT_SOURCES} LANGUAGE C )
 
-IF(NOT SOURCE_SUBLIBS)
-  ADD_LIBRARY(taocrypt ${TAOCRYPT_SOURCES})
-ENDIF(NOT SOURCE_SUBLIBS)
+if ( NOT SOURCE_SUBLIBS )
+  add_library ( taocrypt ${TAOCRYPT_SOURCES} )
+endif ( NOT SOURCE_SUBLIBS )

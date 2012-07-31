@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+include_directories ( ${CMAKE_SOURCE_DIR}/include )
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+set ( REGEX_SOURCES debug.c regcomp.c regerror.c regexec.c regfree.c reginit.c split.c )
 
-SET(REGEX_SOURCES debug.c regcomp.c regerror.c regexec.c regfree.c reginit.c split.c)
-
-IF(NOT SOURCE_SUBLIBS)
-  ADD_LIBRARY(regex ${REGEX_SOURCES})
-ENDIF(NOT SOURCE_SUBLIBS)
+if ( NOT SOURCE_SUBLIBS )
+  add_library ( regex STATIC ${REGEX_SOURCES} )
+endif ( NOT SOURCE_SUBLIBS )
