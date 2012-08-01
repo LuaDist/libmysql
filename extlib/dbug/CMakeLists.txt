@@ -19,5 +19,5 @@ set ( DBUG_SOURCES dbug.c factorial.c sanity.c )
 
 if ( NOT SOURCE_SUBLIBS )
   include_directories ( ${CMAKE_SOURCE_DIR}/include )
-  add_library ( dbug ${DBUG_SOURCES} )
+  add_library ( dbug STATIC ${DBUG_SOURCES} )
 endif ( NOT SOURCE_SUBLIBS )

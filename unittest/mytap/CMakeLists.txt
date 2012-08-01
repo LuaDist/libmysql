@@ -15,4 +15,4 @@
 
 include_directories ( ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib ${CMAKE_SOURCE_DIR}/sql 
   ${CMAKE_SOURCE_DIR}/regex ${CMAKE_SOURCE_DIR}/extra/yassl/include )
-add_library ( mytap tap.c )
+add_library ( mytap STATIC tap.c )

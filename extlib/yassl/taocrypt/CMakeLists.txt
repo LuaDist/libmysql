@@ -31,5 +31,5 @@ set ( TAOCRYPT_SOURCES src/aes.cpp src/aestables.cpp src/algebra.cpp src/arc4.cp
 set_source_files_properties ( ${TAOCRYPT_SOURCES} LANGUAGE C )
 
 if ( NOT SOURCE_SUBLIBS )
-  add_library ( taocrypt ${TAOCRYPT_SOURCES} )
+  add_library ( taocrypt STATIC ${TAOCRYPT_SOURCES} )
 endif ( NOT SOURCE_SUBLIBS )
