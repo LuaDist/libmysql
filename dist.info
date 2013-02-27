@@ -1,0 +1,93 @@
+type = "x86_64"
+arch = "Ubuntu"
+author = "MySQL"
+depends = {
+[[zlib >= 1.2]],
+[[openssl >= 0.9.0]],
+}
+
+desc = "libmysql provides C interface to MySQL. Also known as mysql-connector-c."
+version = "6.0.2"
+maintainer = "Peter Drahoš"
+files = {
+Runtime = {
+[[lib/libmysql.so]],
+}
+,
+Data = {
+[[share/libmysql/README]],
+[[share/libmysql/COPYING]],
+}
+,
+Unspecified = {
+[[bin/mysql_config]],
+}
+,
+Header = {
+[[include/my_vle.h]],
+[[include/keycache.h]],
+[[include/my_time.h]],
+[[include/waiting_threads.h]],
+[[include/decimal.h]],
+[[include/thr_lock.h]],
+[[include/mysql_version.h]],
+[[include/my_net.h]],
+[[include/config-win.h]],
+[[include/my_pthread.h]],
+[[include/violite.h]],
+[[include/my_alarm.h]],
+[[include/m_string.h]],
+[[include/sslopt-vars.h]],
+[[include/my_tree.h]],
+[[include/sha1.h]],
+[[include/mysys_err.h]],
+[[include/myisampack.h]],
+[[include/my_attribute.h]],
+[[include/my_getopt.h]],
+[[include/my_bitmap.h]],
+[[include/my_stacktrace.h]],
+[[include/sslopt-case.h]],
+[[include/my_global.h]],
+[[include/my_trie.h]],
+[[include/my_no_pthread.h]],
+[[include/my_xml.h]],
+[[include/mysql.h]],
+[[include/my_uctype.h]],
+[[include/lf.h]],
+[[include/my_dir.h]],
+[[include/my_libwrap.h]],
+[[include/mysqld_error.h]],
+[[include/m_ctype.h]],
+[[include/sslopt-longopts.h]],
+[[include/errmsg.h]],
+[[include/my_alloc.h]],
+[[include/my_atomic.h]],
+[[include/my_md5.h]],
+[[include/my_config.h]],
+[[include/my_charsets.h]],
+[[include/hash.h]],
+[[include/mysql_com.h]],
+[[include/queues.h]],
+[[include/typelib.h]],
+[[include/my_nosys.h]],
+[[include/sha2.h]],
+[[include/service_versions.h]],
+[[include/t_ctype.h]],
+[[include/base64.h]],
+[[include/sql_common.h]],
+[[include/mysql_time.h]],
+[[include/my_list.h]],
+[[include/my_base.h]],
+[[include/my_aes.h]],
+[[include/wqueue.h]],
+[[include/my_bit.h]],
+[[include/my_dbug.h]],
+[[include/my_sys.h]],
+[[include/thr_alarm.h]],
+}
+,
+}
+
+license = "GPL"
+url = "http://www.mysql.com"
+name = "libmysql"
